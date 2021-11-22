@@ -7,7 +7,7 @@ each thread starts at an equidistant point in the dictionary and works its way u
 
 to comb through every combination we need
 
-(194433^n * 0.01) / 32 milliseconds
+((194433^n * 0.01) / 32) milliseconds
 
 assuming 2 words this means to find every possible combination we need
 11,813,809.84 milliseconds
@@ -18,3 +18,23 @@ or 3.28 hours
 not bad!
 
 if our combination lies near the starting position of one of our threads it will be computed very fast
+
+time complexity of this approach is O(2^n) which is extremely bad
+
+no threading looks like this
+lines represent a list of every combination
+
+| | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | |
+^
+|
+start here and move to the right
+
+multithreading would look like this
+
+| | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | |
+^                 ^                     ^                     ^                 ^                     ^
+|                 |                     |                     |                 |                     |
+                                             we get to start looking in all of these positions at once
+                                             and look to the right from each starting point
+
+if our data set does not divide evenly into the number of threads we have then the previous threads will do the missed work of our rounded thread

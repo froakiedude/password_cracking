@@ -460,6 +460,9 @@ public class BruteForce extends Thread{
         }
     }
 
+    /**
+     * Attempts to crack common pattern of two words + 2 numbers for passwords systematically
+     */
     private void crackTwoWordsPlus2Numbers(){
         String test;
         String partOne;
