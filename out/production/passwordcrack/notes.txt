@@ -1,0 +1,20 @@
+0.01 ms for each iteration
+194433 words
+n = number of words in out password
+194433^n iterations
+32 threads
+each thread starts at an equidistant point in the dictionary and works its way up
+
+to comb through every combination we need
+
+(194433^n * 0.01) / 32 milliseconds
+
+assuming 2 words this means to find every possible combination we need
+11,813,809.84 milliseconds
+or 11,813.81 seconds
+or 196.90 minutes
+or 3.28 hours
+
+not bad!
+
+if our combination lies near the starting position of one of our threads it will be computed very fast
