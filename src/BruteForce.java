@@ -22,7 +22,16 @@ public class BruteForce extends Thread{
         if (!isDictionary){
             randomCharacterAttack();
         } else {
-            combinationDictionaryAttack();
+            switch (numOfWords){
+                case 2:
+                    combinationDictionaryAttack2();
+                    break;
+                case 3:
+                    combinationDictionaryAttack3();
+                    break;
+                default:
+                    combinationDictionaryAttack1();
+            }
         }
     }
 
@@ -73,18 +82,35 @@ public class BruteForce extends Thread{
     }
 
     /**
-     * Sets thread up to logically sift through its portion of the dictionary checking all possible combinations in parallel
+     * Sets thread up to logically sift through its portion of the dictionary checking all possible words in parallel
      */
-    private void combinationDictionaryAttack(){
+    private void combinationDictionaryAttack1(){
+        String test;
+        long start_time = System.nanoTime();
+        while(true) {
+            for (int i = startPoint; i < dictionary.length; i++){
+                test = dictionary[i];
+                if (test.equals(password)){
+                    long end_time = System.nanoTime();
+                    double difference = (end_time - start_time) / 1e6;
+                    System.out.println("Found it in " + difference + "ms");
+                    System.exit(0);
+                }
+            }
+        }
+    }
+
+    /**
+     * Sets thread up to logically sift through its portion of the dictionary checking all possible combinations of 2 words in parallel
+     */
+    private void combinationDictionaryAttack2(){
         String test;
         long start_time = System.nanoTime();
         while(true) {
             for (int i = startPoint; i < dictionary.length; i++){
                 for (int j = 0; j < dictionary.length; j++){
                     test = dictionary[i];
-                    for (int k = 0; k < numOfWords - 1; k++) {
-                        test += dictionary[j];
-                    }
+                    test += dictionary[j];
                     if (test.equals(password)){
                         long end_time = System.nanoTime();
                         double difference = (end_time - start_time) / 1e6;
@@ -96,4 +122,28 @@ public class BruteForce extends Thread{
         }
     }
 
+    /**
+     * Sets thread up to logically sift through its portion of the dictionary checking all possible combinations of 3 words in parallel
+     */
+    private void combinationDictionaryAttack3(){
+        String test;
+        long start_time = System.nanoTime();
+        while(true) {
+            for (int i = startPoint; i < dictionary.length; i++){
+                for (int j = 0; j < dictionary.length; j++){
+                    for (int k = 0; k < dictionary.length; k++){
+                        test = dictionary[i];
+                        test += dictionary[j];
+                        test += dictionary[k];
+                        if (test.equals(password)){
+                            long end_time = System.nanoTime();
+                            double difference = (end_time - start_time) / 1e6;
+                            System.out.println("Found it in " + difference + "ms");
+                            System.exit(0);
+                        }
+                    }
+                }
+            }
+        }
+    }
 }
