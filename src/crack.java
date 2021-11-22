@@ -7,7 +7,9 @@ import java.util.Scanner;
 
 public class crack {
     public static void main(String[] args) throws IOException{
-        BruteForce[] threads = new BruteForce[Runtime.getRuntime().availableProcessors()];
+        BruteForce[] threads = new BruteForce[Runtime.getRuntime().availableProcessors()]; //instantiate array of threads equal to the users number of threads
+
+        //reading dictionary into array
         BufferedReader in = new BufferedReader(new FileReader("./src/bigdict.txt"));
         String str;
         List<String> list = new ArrayList<>();
@@ -15,6 +17,9 @@ public class crack {
             list.add(str);
         }
         String[] stringArr = list.toArray(new String[0]);
+        in.close();
+
+        //getting user input
         Scanner scan = new Scanner(System.in);
         System.out.println("Enter password");
         String password = scan.nextLine();
@@ -31,6 +36,8 @@ public class crack {
         }
         System.out.println("How many words? (if performing dictionary attack)");
         String numOfWords = scan.nextLine();
+
+        //creating and starting our threads
         for (int i = 0; i < threads.length; i++){
             if (i < Integer.parseInt(charThreadNum)){
                 threads[i] = new BruteForce(password, stringArr, false, 0, Integer.parseInt(numOfWords));

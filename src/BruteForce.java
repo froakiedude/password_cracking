@@ -10,6 +10,14 @@ public class BruteForce extends Thread{
     private final int startPoint;
     private final int numOfWords;
 
+    /**
+     *
+     * @param password Password to be cracked
+     * @param dictionary String array of words to combine
+     * @param isDictionary Boolean flag for if this thread should be performing character or dictionary attacks
+     * @param startPoint Start point for this thread in the dictionary
+     * @param numOfWords Number of words in the password if performing a dictionary attack
+     */
     public BruteForce(String password, String[] dictionary, boolean isDictionary, int startPoint, int numOfWords){
         this.password = password;
         this.dictionary = dictionary;
@@ -22,15 +30,10 @@ public class BruteForce extends Thread{
         if (!isDictionary){
             randomCharacterAttack();
         } else {
-            switch (numOfWords){
-                case 2:
-                    combinationDictionaryAttack2();
-                    break;
-                case 3:
-                    combinationDictionaryAttack3();
-                    break;
-                default:
-                    combinationDictionaryAttack1();
+            switch (numOfWords) {
+                case 2 -> combinationDictionaryAttack2();
+                case 3 -> combinationDictionaryAttack3();
+                default -> combinationDictionaryAttack1();
             }
         }
     }
