@@ -40,7 +40,7 @@ public class crack {
         //creating and starting our threads
         for (int i = 0; i < threads.length; i++){
             if (i < Integer.parseInt(charThreadNum)){
-                threads[i] = new BruteForce(password, stringArr, false, 0, Integer.parseInt(numOfWords));
+                threads[i] = new BruteForce(password, stringArr, false, i * (94 / threads.length), Integer.parseInt(numOfWords));
             } else {
                 threads[i] = new BruteForce(password, stringArr, true, i * (stringArr.length / threads.length), Integer.parseInt(numOfWords));
             }
